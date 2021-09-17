@@ -25,10 +25,18 @@ for (let i = 0; i < len; i++) {
 
 people.shift();
 
-people.map((el) => {
+let peopleByDob = [];
+
+people.forEach((el) => {
     el.dob = el.dob.split("-");
-}).sort((a, b) => {
+    const mutEL = {docname: el.docname, dob: el.dob};
+    peopleByDob.push(mutEL)
+})
+
+peopleByDob.sort((a, b) => {
     return new Date(...a.dob) - new Date(...b.dob);
 })
 
-console.log(people);
+peopleByDob.forEach((el) => {
+    console.log(`${el.docname}: ${el.dob.toString().replace(/,/g, ".")}`);
+})
