@@ -2,7 +2,7 @@ const fs = require("fs");
 
 let fileData = fs.readFileSync("ppl.csv", "utf-8");
 
-fileData = fileData.replace(/;/g, " ").split("\r\n");
+fileData = fileData.split("\r\n");
 
 let people = [];
 
@@ -18,7 +18,7 @@ class Person {
 
 let len = fileData.length;
 for (let i = 0; i < len; i++) {
-    const el = fileData[i].split(" ");
+    const el = fileData[i].split(";");
     const person = new Person(...el);
     people.push(person)
 }
@@ -28,15 +28,14 @@ people.shift();
 let peopleByDob = [];
 
 people.forEach((el) => {
-    el.dob = el.dob.split("-");
     const mutEL = {docname: el.docname, dob: el.dob};
     peopleByDob.push(mutEL)
 })
 
 peopleByDob.sort((a, b) => {
-    return new Date(...a.dob) - new Date(...b.dob);
+    return new Date(a.dob) - new Date(b.dob);
 })
 
 peopleByDob.forEach((el) => {
-    console.log(`${el.docname}: ${el.dob.toString().replace(/,/g, ".")}`);
+    console.log(`${el.docname}: ${el.dob.replace(/-/g, ".")}`);
 })
