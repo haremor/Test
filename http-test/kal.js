@@ -17,7 +17,7 @@ for (let i = 0; i < len; i++) { // Process the csv file
 
 const server = http.createServer((req, res) => {
     if (req.url === "/") { // Index page response
-        fs.readFile("./.html", (e, d) => {
+        fs.readFile("./index.html", (e, d) => {
             res.write(!e ? d : "sluchilsya puk perduk");
             let imgs = "";
             imageTable.forEach(el => {
